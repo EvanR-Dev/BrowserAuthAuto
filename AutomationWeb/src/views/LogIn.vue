@@ -1,9 +1,9 @@
 <template>
   <n-space vertical justify="center">
     <n-card style="height: 300px; width: 300px; justify-content: center; color: white" title="Welcome">
-      <n-input v-model="email" placeholder="Email" size="large"/>
+      <n-input v-model:value="email" placeholder="Email Address" size="large" @input="print"/>
       <n-input
-        v-model="password"
+        v-model:value="password"
         placeholder="Password"
         type="password"
         show-password-on="click"
@@ -21,23 +21,37 @@
 </template>
 
 <script setup lang="ts">
-import { NCard, NInput, NSpace, NButton } from 'naive-ui';
+import { NCard, NInput, NSpace, NButton, useNotification } from 'naive-ui';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { logInUser } from '@/services/UserServices';
+
+const router = useRouter();
+const notif = useNotification();
 
 const email = ref('');
 const password = ref('');
 
+const print = (input: string) => {
+  console.log(email.value);
+}
+
 const forgotPassword = () => {
   //do something
-}
+};
 
-const logIn = () => {
-  //do something
-}
+const logIn = async () => {
+  console.log(email.value);
+  var error = await logInUser(email.value, password.value);
+    if (error) {
+        notif.error({ content: error, duration: 3000 });
+    }
+};
 
 const signUp = () => {
-  //do something
-}
+  router.push({ name: 'signUp'});
+};
+
 </script>
 
 <style scoped>
