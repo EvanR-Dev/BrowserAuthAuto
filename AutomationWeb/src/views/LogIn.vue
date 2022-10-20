@@ -38,7 +38,7 @@ const print = (input: string) => {
 
 const forgotPassword = () => {
   // do something
-  // router.push({ name: 'recoverAccount'});
+  router.push({ name: 'recoverAccount'});
 };
 
 const logIn = async () => {
