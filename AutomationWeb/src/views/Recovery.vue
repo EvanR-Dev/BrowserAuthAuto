@@ -1,45 +1,57 @@
 <template>
-    <n-space vertical justify="center">
-      <n-card style="height: 300px; width: 300px; justify-content: center; color: white" title="Recover Account">
-        <n-input v-model:value="email" placeholder="Email Address" size="large" @input="print"/>
-        
-        <n-button class="text-button" text @click="sendEmail">
-          Send eMail
-        </n-button>
-        <br/>
-      </n-card>
-      <h3 class="outside">outside</h3>
-      
+  <n-space vertical justify="center">
+    <n-card style="height: 200px; width: 300px; justify-content: center; color: white" title="Recover Account">
+      <n-input v-model:value="email" placeholder="Email Address" size="large" @input="print" />
+      <br/>
+      <br/>
+      <n-button id='send' @click="sendEmail">
+        Send Email
+      </n-button>
+    </n-card>
+
+    <h3 class="outside">BrowserAuthAuto</h3>
+
   </n-space>
-  </template>
+</template>
 
 
 <script setup lang="ts">
 
 import { NCard, NInput, NSpace, NButton, useNotification } from 'naive-ui';
-// import { ref } from 'vue';
+//import { getAuth } from "firebase/auth";
+import { recoverUser } from '@/services/UserServices';
 import { useRouter } from 'vue-router';
+import { ref } from 'vue';
+
 const router = useRouter();
+const notif = useNotification();
+const email = ref('');
 
+const print = (input: string) => {
+  console.log(email.value);
+}
 
-const sendEmail = () => {
-  // do something with firebase
-  // also validate email exists for an account?
+const sendEmail = async () => {
+
+  console.log(email.value);
+  var error = await recoverUser(email.value);
+  if (error) {
+    notif.error({ content: error, duration: 3000 });
+  }
 };
 
 </script>
-
 
 
 <style scoped>
 .n-input {
   margin-top: 10px;
 }
-.text-button {
-  margin-top: 20px;
-  margin-bottom: 30px;
-  justify-self: center;
+
+#send {
+  
 }
+
 .outside {
   text-align: center;
   flex: 0;

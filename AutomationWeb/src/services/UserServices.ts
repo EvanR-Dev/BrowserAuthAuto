@@ -1,4 +1,4 @@
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 
 export const createUser = (email: string, password: string): Promise<string | null> => {
     const auth = getAuth();
@@ -23,5 +23,22 @@ export const logInUser = (email: string, password: string): Promise<string | nul
         })
         .catch((error) => {
             return error.message as string;
+        });
+};
+
+// make sure email exists, then send email
+export const recoverUser = (email: string): Promise<string | null> => {
+    const auth = getAuth();
+    return sendPasswordResetEmail(auth, email)
+        .then(() => {
+            // Password reset email sent!
+            // ..
+            return "Success";
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            return error.message as string;
+            // ..
         });
 };
