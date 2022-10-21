@@ -44,6 +44,7 @@ const forgotPassword = () => {
 const logIn = async () => {
   console.log(email.value);
   var error = await logInUser(email.value, password.value);
+  console.log(document.cookie);
     if (error) {
         notif.error({ content: error, duration: 3000 });
     }
