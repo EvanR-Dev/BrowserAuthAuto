@@ -37,12 +37,14 @@ const print = (input: string) => {
 }
 
 const forgotPassword = () => {
-  //do something
+  // do something
+  router.push({ name: 'recoverAccount'});
 };
 
 const logIn = async () => {
   console.log(email.value);
   var error = await logInUser(email.value, password.value);
+  console.log(document.cookie);
     if (error) {
         notif.error({ content: error, duration: 3000 });
     }
