@@ -1,7 +1,7 @@
 <template>
   <n-space vertical justify="center">
     <n-card style="height: 300px; width: 300px; justify-content: center; color: white" title="Welcome">
-      <n-input v-model:value="email" placeholder="Email Address" size="large" @input="print"/>
+      <n-input v-model:value="email" placeholder="Email Address" size="large"/>
       <n-input
         v-model:value="password"
         placeholder="Password"
@@ -32,19 +32,12 @@ const notif = useNotification();
 const email = ref('');
 const password = ref('');
 
-const print = (input: string) => {
-  console.log(email.value);
-}
-
 const forgotPassword = () => {
-  // do something
   router.push({ name: 'recoverAccount'});
 };
 
 const logIn = async () => {
-  console.log(email.value);
   var error = await logInUser(email.value, password.value);
-  console.log(document.cookie);
     if (error) {
         notif.error({ content: error, duration: 3000 });
     }

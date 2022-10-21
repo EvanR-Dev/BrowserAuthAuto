@@ -18,12 +18,8 @@ export const logInUser = (email: string, password: string): Promise<string | nul
     return signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             // Signed in 
-
             document.cookie = "CurrentUser" + "=" + JSON.stringify(userCredential.user);
-
             console.log(decodeURIComponent(document.cookie))
-            const user = userCredential.user;
-
             return null;
         })
         .catch((error) => {
@@ -37,13 +33,9 @@ export const recoverUser = (email: string): Promise<string | null> => {
     return sendPasswordResetEmail(auth, email)
         .then(() => {
             // Password reset email sent!
-            // ..
-            return "Success";
+            return null;
         })
         .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
             return error.message as string;
-            // ..
         });
 };
