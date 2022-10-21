@@ -1,4 +1,4 @@
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail} from "firebase/auth";
 
 export const createUser = (email: string, password: string): Promise<string | null> => {
     const auth = getAuth();
@@ -18,7 +18,12 @@ export const logInUser = (email: string, password: string): Promise<string | nul
     return signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             // Signed in 
+
+            document.cookie = "CurrentUser" + "=" + JSON.stringify(userCredential.user);
+
+            console.log(decodeURIComponent(document.cookie))
             const user = userCredential.user;
+
             return null;
         })
         .catch((error) => {
