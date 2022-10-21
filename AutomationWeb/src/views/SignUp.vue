@@ -1,6 +1,6 @@
 <template>
     <n-space vertical justify="center">
-      <n-card style="height: 300px; width: 300px; justify-content: center; color: white" title="Account Information">
+      <n-card style="height: 300px; width: 300px; justify-content: center; align-items: center; color: white" title="Account Information">
         <n-input v-model:value="email" placeholder="Email Address" size="large"/>
         <n-input
           v-model:value="password"
@@ -30,6 +30,9 @@
   import { ref } from 'vue';
   import { useRouter } from 'vue-router';
   import { createUser } from '@/services/UserServices';
+  import { getAuth } from 'firebase/auth'
+  import { createUserWithEmailAndPassword } from 'firebase/auth';
+  import { sendEmailVerification } from 'firebase/auth';
 
   const router = useRouter();
   const notif = useNotification();
@@ -42,11 +45,19 @@
     router.push({ name: 'home' });
   }
   
-  const signUp = async () => {
-    var error = await createUser(email.value, password.value);
+  const signUp = () => {
+    /*var error = await createUser(email.value, password.value);
     if (error) {
         notif.error({ content: error, duration: 3000 });
-    }
+    }*/
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, email.value, password.value)
+    .then((user)=>{
+      // send verification email
+      sendEmailVerification(auth.currentUser);
+      router.push({ name: 'emailVerification' });
+    })
+    .catch(alert);
   }
   </script>
   
