@@ -1,7 +1,7 @@
 <template>
   <n-space vertical justify="center">
     <n-card style="height: 200px; width: 300px; justify-content: center; color: white" title="Recover Account">
-      <n-input v-model:value="email" placeholder="Email Address" size="large" @input="print" />
+      <n-input v-model:value="email" placeholder="Email Address" size="large"/>
       <br/>
       <br/>
       <n-button id='send' @click="sendEmail">
@@ -9,7 +9,7 @@
       </n-button>
     </n-card>
 
-    <h3 class="outside">BrowserAuthAuto</h3>
+    <n-button color="white" text-color="black" style="margin-left: 110px" size="large" @click="logIn">Return</n-button>
 
   </n-space>
 </template>
@@ -27,17 +27,17 @@ const router = useRouter();
 const notif = useNotification();
 const email = ref('');
 
-const print = (input: string) => {
-  console.log(email.value);
-}
-
 const sendEmail = async () => {
-
-  console.log(email.value);
   var error = await recoverUser(email.value);
   if (error) {
     notif.error({ content: error, duration: 3000 });
+  } else {
+    notif.success({ content: "Sent Password Reset Email", duration: 3000 });
   }
+};
+
+const logIn = () => {
+  router.push({ name: 'home' });
 };
 
 </script>
