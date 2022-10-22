@@ -29,6 +29,11 @@ const router = createRouter({
       name: 'emailVerification',
       component: EmailVerification
     }
+    {
+      path: '/web-list',
+      name: 'webList',
+      component: WebList
+    }
   ]
 })
 
