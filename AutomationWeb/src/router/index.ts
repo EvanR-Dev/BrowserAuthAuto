@@ -2,9 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LogIn from '@/views/LogIn.vue'
 import SignUp from '@/views/SignUp.vue'
 import Recovery from '@/views/Recovery.vue'
-import EmailVerification from '@/views/EmailVerification.vue'
-
-import { sendEmailVerification } from 'firebase/auth'
+import WebList from '@/views/WebList.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,12 +23,7 @@ const router = createRouter({
       component: Recovery
     },
     {
-      path: '/email_verification',
-      name: 'emailVerification',
-      component: EmailVerification
-    }
-    {
-      path: '/web-list',
+      path: '/web_list',
       name: 'webList',
       component: WebList
     }
