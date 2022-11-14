@@ -19,13 +19,25 @@ export const logInUser = (email: string, password: string): Promise<string | nul
         .then((userCredential) => {
             // Signed in 
             document.cookie = "CurrentUser" + "=" + JSON.stringify(userCredential.user);
-            console.log(decodeURIComponent(document.cookie))
+            //console.log(decodeURIComponent(document.cookie));
             return null;
         })
         .catch((error) => {
             return error.message as string;
         });
 };
+
+export const logOutUser = (): Promise<string | null> => {
+    const auth = getAuth();
+    return auth.signOut()
+        .then(() => {
+            document.cookie = "CurrentUser" + "=" + null;
+            return null;
+        })
+        .catch((error) => {
+            return error.message as string;
+        })
+}
 
 // make sure email exists, then send email
 export const recoverUser = (email: string): Promise<string | null> => {

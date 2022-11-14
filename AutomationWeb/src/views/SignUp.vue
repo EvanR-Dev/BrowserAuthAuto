@@ -29,7 +29,6 @@
   import { NCard, NInput, NSpace, NButton, useNotification } from 'naive-ui';
   import { ref } from 'vue';
   import { useRouter } from 'vue-router';
-  import { createUser } from '@/services/UserServices';
   import { getAuth } from 'firebase/auth'
   import { createUserWithEmailAndPassword } from 'firebase/auth';
   import { sendEmailVerification } from 'firebase/auth';
@@ -46,18 +45,20 @@
   }
   
   const signUp = () => {
-    /*var error = await createUser(email.value, password.value);
-    if (error) {
-        notif.error({ content: error, duration: 3000 });
-    }*/
-    const auth = getAuth();
-    createUserWithEmailAndPassword(auth, email.value, password.value)
-    .then((user)=>{
-      // send verification email
-      sendEmailVerification(auth.currentUser);
-      router.push({ name: 'emailVerification' });
-    })
-    .catch(alert);
+    if (password.value == confirmPassword.value) {
+      const auth = getAuth();
+      createUserWithEmailAndPassword(auth, email.value, password.value)
+        .then((user)=>{
+          // send verification email
+          if (auth.currentUser) {
+            sendEmailVerification(auth.currentUser);
+            router.push({ name: 'emailVerification' });
+          }
+        })
+        .catch(alert);
+    } else {
+      notif.error({ content: 'Passwords do not match', duration: 3000 });
+    }
   }
   </script>
   

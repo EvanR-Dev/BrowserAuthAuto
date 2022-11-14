@@ -51,7 +51,7 @@
                 </div>
               </td>
               <td>
-                <n-button class="dataStyle" @click="login"> Login </n-button>
+                <n-button class="dataStyle" @click="login(website.id)"> Login </n-button>
               </td>
             </tr>
           </tbody>
@@ -64,14 +64,23 @@
 import { NCard, NInput, NSpace, NButton, useNotification } from "naive-ui";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { logOutUser } from "@/services/UserServices";
 
 const router = useRouter();
+const notif = useNotification();
 
-const logOut = () => {
-  router.push({ name: "home" });
+const logOut = async () => {
+  var error = await logOutUser();
+    if (error) {
+        notif.error({ content: error, duration: 3000 });
+    } else {
+      router.push({ name: "home" });
+    }
 };
 
-const login = () => {};
+const login = (id: number) => {
+  //merge here using identifier
+};
 
 const websites = [
   {

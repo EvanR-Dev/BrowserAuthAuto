@@ -33,13 +33,15 @@ const email = ref('');
 const password = ref('');
 
 const forgotPassword = () => {
-  router.push({ name: 'recoverAccount'});
+  router.push({name: 'recoverAccount'});
 };
 
 const logIn = async () => {
   var error = await logInUser(email.value, password.value);
     if (error) {
         notif.error({ content: error, duration: 3000 });
+    } else {
+      router.push({name: 'webList'})
     }
 };
 
