@@ -1,3 +1,6 @@
-import { ref, computed } from 'vue'
-import { defineStore } from 'pinia'
+import { ref, computed, reactive } from 'vue'
 
+export const store = reactive({
+    username: '',
+    password: ''
+})

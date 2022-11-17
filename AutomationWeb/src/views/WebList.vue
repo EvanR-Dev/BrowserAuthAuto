@@ -63,6 +63,7 @@
 <script setup lang="ts">
 import { NCard, NInput, NSpace, NButton, useNotification } from "naive-ui";
 import { ref } from "vue";
+import { store } from "@/stores/index"
 import { useRouter } from "vue-router";
 import { logOutUser } from "@/services/UserServices";
 
@@ -79,7 +80,8 @@ const logOut = async () => {
 };
 
 const login = (id: number) => {
-  //merge here using identifier
+  //do merger magic with store
+  console.log(store.username + ' ' + store.password);
 };
 
 const websites = [
