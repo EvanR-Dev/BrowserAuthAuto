@@ -29,7 +29,7 @@
   import { NCard, NInput, NSpace, NButton, useNotification } from 'naive-ui';
   import { ref } from 'vue';
   import { useRouter } from 'vue-router';
-  import { getAuth } from 'firebase/auth'
+  import { getAuth } from 'firebase/auth';
   import { createUserWithEmailAndPassword } from 'firebase/auth';
   import { sendEmailVerification } from 'firebase/auth';
 

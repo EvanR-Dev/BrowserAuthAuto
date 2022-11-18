@@ -1,7 +1,7 @@
 <template>
     <n-space vertical justify="center">
       <n-card class="card" title="Email Verification">
-        <h3 class="message">We have sent a verification link to the email you've provided. Please click on the link now to verify your email before moving forward. If you don't see it, make sure you check your spam folder.</h3>
+        <h3 class="message">We have sent a verification link to the email you've provided. Please click on the link now to verify your email before logging in. If you don't see it, make sure you check your spam folder.</h3>
       </n-card>
     </n-space>
   </template>
@@ -13,7 +13,6 @@
 
   const router = useRouter();
   const notif = useNotification();
-  
 
   </script>
   

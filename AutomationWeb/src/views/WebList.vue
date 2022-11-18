@@ -85,6 +85,8 @@ const login = (id: number) => {
       .then(response => response.text())
       .then(text => console.log(text))
   }
+  //do merger magic with store
+  console.log(store.username + ' ' + store.password);
 };
 
 const websites = [

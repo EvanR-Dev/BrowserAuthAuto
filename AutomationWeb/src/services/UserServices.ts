@@ -1,5 +1,6 @@
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail} from "firebase/auth";
 import { store } from "@/stores/index"
+
 export const createUser = (email: string, password: string): Promise<string | null> => {
     const auth = getAuth();
     return createUserWithEmailAndPassword(auth, email, password)
@@ -19,7 +20,7 @@ export const logInUser = (email: string, password: string): Promise<string | nul
         .then((userCredential) => {
             // Signed in 
             document.cookie = "CurrentUser" + "=" + JSON.stringify(userCredential.user);
-            
+
             store.password = password;
             store.username = email;
             return null;
