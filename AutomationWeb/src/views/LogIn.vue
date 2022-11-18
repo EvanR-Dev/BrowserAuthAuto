@@ -25,6 +25,7 @@ import { NCard, NInput, NSpace, NButton, useNotification } from 'naive-ui';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { logInUser } from '@/services/UserServices';
+import { getAuth, deleteUser, onAuthStateChanged } from 'firebase/auth';
 
 const router = useRouter();
 const notif = useNotification();
@@ -38,11 +39,25 @@ const forgotPassword = () => {
 
 const logIn = async () => {
   var error = await logInUser(email.value, password.value);
-    if (error) {
-        notif.error({ content: error, duration: 3000 });
+  
+  if (error) {
+      notif.error({ content: error, duration: 3000 });
+  } else {
+    // once they're logged in, check if they've verified their email
+    const auth = getAuth();
+
+    if (auth.currentUser.emailVerified) {
+      router.push({name: 'webList'});
     } else {
-      router.push({name: 'webList'})
+      // not verified -> delete their account and have them sign up again
+      deleteUser(auth.currentUser).then(() => {
+        notif.error({ content: "Account deleted because email is not verified. Please sign up again and verify your email before attempting to log in.", duration: 10000 });
+        router.push({name: 'signUp'});
+      }).catch((error) => {
+        notif.error({ content: error, duration: 3000 });
+      });
     }
+  }
 };
 
 const signUp = () => {
