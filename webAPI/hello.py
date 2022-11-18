@@ -37,11 +37,13 @@ def automate_login_to_inzernet():
     options = Options()
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
     driver = webdriver.Chrome(executable_path='C:\\Users\\lopez\\Downloads\\chromedriver_win32\\chromedriver.exe')
+    email = request.args.get('e')
+    password = request.args.get('p')
     driver.get(base_url)
     # fill in email and press enter (must be valid here to continue automation)
     driver.find_element("link text","Log in").click()
-    driver.find_element(By.ID,"CustomerEmail").send_keys("npm")
-    driver.find_element(By.ID,"CustomerPassword").send_keys("123" + Keys.ENTER)
+    driver.find_element(By.ID,"CustomerEmail").send_keys(email)
+    driver.find_element(By.ID,"CustomerPassword").send_keys(password + Keys.ENTER)
 
     return 'hello'
 
@@ -53,15 +55,16 @@ def automate_login_to_amazon():
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
     driver = webdriver.Chrome(executable_path='C:\\Users\\lopez\\Downloads\\chromedriver_win32\\chromedriver.exe')
     driver.get(base_url)
-
+    email = request.args.get('e')
+    password = request.args.get('p')
     driver.implicitly_wait(5)
     driver.get(base_url)
     # redirect to sign-in pg
     driver.find_element(By.ID, "a-autoid-1-announce").click()
     # fill in email and press enter (must be valid here to continue automation)
-    driver.find_element(By.ID, "ap_email").send_keys("DInky#dintabious.com" + Keys.ENTER)
+    driver.find_element(By.ID, "ap_email").send_keys(email + Keys.ENTER)
     # fill in password and press enter (must be valid here to continue automation)
     driver.implicitly_wait(5)
-    driver.find_element(By.ID, "ap_password").send_keys("nap" + Keys.ENTER)
+    driver.find_element(By.ID, "ap_password").send_keys(password + Keys.ENTER)
     # search an item in the search box
     driver.find_element(By.ID, "twotabsearchtextbox").send_keys("Logitech G PRO X SUPERLIGHT" + Keys.ENTER)
