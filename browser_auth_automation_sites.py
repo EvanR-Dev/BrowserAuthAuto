@@ -4,6 +4,12 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from time import sleep
+from flask import Flask
+
+app = Flask(__name__)
+@app.route('/')
+def all():
+ return "Hello";
 
 # Sign into our application using email and pw ----> use same login for desired websites listed
 def application_login():
@@ -98,7 +104,7 @@ def start():
     # setup browser (driver) from local download
     options = Options()
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
-    DRIVER_PATH = 'C:\\Users\\evanr\\Downloads\\Project Sample\\drivers\\chromedriver.exe'
+    DRIVER_PATH = 'C:\\Users\\lopez\\Downloads\\chromedriver_win32\\chromedriver.exe'
     
     driver = webdriver.Chrome(options=options, service=Service(DRIVER_PATH))
     driver.maximize_window()

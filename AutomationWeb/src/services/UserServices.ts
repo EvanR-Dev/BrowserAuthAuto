@@ -20,6 +20,7 @@ export const logInUser = (email: string, password: string): Promise<string | nul
         .then((userCredential) => {
             // Signed in 
             document.cookie = "CurrentUser" + "=" + JSON.stringify(userCredential.user);
+
             store.password = password;
             store.username = email;
             return null;
